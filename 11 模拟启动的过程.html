@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zlf">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<p>在下面你会看到一张图片</p>
+<duang></duang>
+</body>
+</html>
+<script>
+    /*//1.等待浏览器解析完DOM
+    angular.element(document).ready(function () {
+        //2.创建一个注入器，并且将注入器放置在ng-app所造的标签位置
+        //（在此之前，首先先找到ng-app的位置）
+        var injector = angular.injector(['ng','zlf']);
+        angular.element(document).data('$injector',injector);
+        //3.创建根作用域，$rootScope对象，同样的挂载到ng-app所在的标签位置上
+        var rootScope = injector.get('$rootScope');
+        angular.element(document).data('$rootScope',rootScope);
+        //4.启动$compile服务，遍历DOM，解析angular的指令和自定义的指令，完成编译
+        var compile = injector.get('$compile');
+        compile(document)(rootScope);
+    })*/
+    angular.module('zlf',[])
+            .directive('duang',function () {
+                return {
+                    restrict:'E',
+                    template:"<img src='http://ww4.sinaimg.cn/bmiddle/757eb2ffjw1eptcr4qobjg209205dthh.gif'>"
+                }
+            })
+</script>

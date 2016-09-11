@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<div id="content"></div>
+</body>
+</html>
+<script>
+    //定义一个服务
+    angular.module('lzy',[])
+            .provider('ezHello',function(){
+                //服务必须要返回一个实例
+                this.$get = function(){
+                    return "hello world";
+                }
+            })
+    //将服务打印到页面中去
+    angular.element(document).ready(function(){
+        //这种写法是为了解决压缩问题的
+        angular.injector(['ng','lzy']).invoke(['ezHello',function(ezHello){
+            var e = document.querySelector('#content')
+            angular.element(e).text(ezHello)
+        }])
+    })
+</script>

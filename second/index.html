@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.table-combine,.tr-combine>th,.tr-combine>td{
+				border: solid 1px gray;
+				padding: 10px;
+			}
+			table{
+				border-collapse: collapse;
+				margin: 100px auto;
+			} 
+			.outer{
+				position: absolute;
+				right: 40px;
+			}
+			.inner-down,.inner-up{
+				text-align: center;
+				line-height: 50px;
+				width: 100px;
+				/*height: 50px;*/
+				border: solid 1px blue;
+			}
+			.up-number{
+				color: red;
+			}
+			.table-after,.table-after th,.table-after td{
+				border: solid 1px gray;
+				padding: 10px;
+			}
+			.table-after{
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body ng-app="myApp">
+		<main ng-controller="table1">
+			<table class="table-combine" >
+				<tr class="tr-combine">
+					<th ng-repeat="t in data1.title">
+						<span ng-bind="t"></span>
+					</th>
+				</tr>
+				<tr class="tr-combine" ng-repeat = "con in data1.content">
+					<td><span ng-bind="$index+1"></span></td>
+					<td><span ng-bind="con.name"></span></td>
+					<td><span ng-bind="con.number"></span></td>
+					<td><span ng-bind="con.state" ng-click="plus(con.name)"></span></td>
+				</tr>
+			</table>
+			
+			<div class="outer">
+				<div class="inner-up">
+					已选择商品<strong class="up-number">0</strong>个
+				</div>
+				<div class="inner-down">
+					其他商品
+				</div>
+			</div>
+			
+			<table class="table-after">
+				<tr>
+					<th  ng-repeat = "d2 in data2.title">
+						<span ng-bind="d2"></span>
+					</th>
+				</tr>
+				<tr ng-repeat = "con2 in data2.content">
+					<td>
+						<span ng-bind="$index+1"></span>
+					</td>
+					<td>
+						<span ng-bind="con2.name"></span>
+					</td>
+					<td>
+						<span ng-bind="con2.number"></span>
+					</td>
+					<td>
+						<span ng-bind="con2.state" ng-click="sub(con2.name)"></span>
+					</td>
+				</tr>
+			</table>
+		</main>
+		
+		
+	</body>
+	<script src="jquery-3.1.0.min.js"></script>
+	<script src="angular.min.js"></script>
+	<script>
+		var app = angular.module("myApp",[]);		
+		app.service("subCurrentElement",function(){
+				return function(subDataNumber,plusDataNumber,element){
+				var a = subDataNumber.content.filter(function(obj,index,subDataNumber){
+					return obj.name !== element;
+				});
+				var b = subDataNumber.content.filter(function(obj,inndex,subDataNumber){
+					return obj.name == element;
+				});
+				console.dir(b[0]);
+				b[0].state = "取消";
+				subDataNumber.content = a;
+				plusDataNumber.content.push(b[0]);
+				console.log(plusDataNumber.content)
+			}
+		});
+	
+		app.controller("table1",["$scope","subCurrentElement",function($scope,subCurrentElement){
+			$scope.data1 = {
+				title:["编号","商品名","数量","功能"],
+				content:[
+					{name:"矿泉水",number:"100",state:"合单"},
+					{name:"面包",number:"200",state:"合单"}
+				]
+			};
+			$scope.plus = function(e){
+				//点击出现点击产品名字，然后调用subCurrentElement()增加函数来达到目的。
+				console.log(e);
+				subCurrentElement($scope.data1,$scope.data2,e);
+			};
+			
+			$scope.data2 = {
+				title:["编号","商品名","数量","功能"],
+				content:[
+					{name:"毛巾",number:"50",state:"取消"},
+					{name:"茶杯",number:"20",state:"取消"}
+				]
+			}
+			$scope.sub = function(e){
+				console.log(e);
+				
+			}
+			
+		}]);
+		
+	</script>
+</html>

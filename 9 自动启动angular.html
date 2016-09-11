@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--自动启动angular是通过ng-app来实现的-->
+<html ng-app="zlf">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--当你在HTML文件中引入angular.min.js时，AngularJS只是建立了一个全局的 angular对象，这个对象有一些方法可供开发者调用，但应用的框架还没有建立。-->
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<duang></duang>
+</body>
+</html>
+<script>
+    angular.module('zlf',[])
+            .directive('duang',function(){
+                return {
+                    restrict:"E",
+                    template:"<img src='http://ww4.sinaimg.cn/bmiddle/757eb2ffjw1eptcr4qobjg209205dthh.gif'>"
+                }
+            })
+
+</script>

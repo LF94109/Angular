@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--先将angular的核心文件加载进来-->
+    <script src="angular.js"></script>
+    <!--然后再将angular的第三方的插件加载进来-->
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //2.第二步,定义一个模块,并注入依赖的模块
+    var app = angular.module('lzy',['ui.router']);
+    //3.第三步,设置angular在启动时候需要设置的全局变量或者初始化操作
+    app.run(function($rootScope,$state,$stateParams){
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    })
+    //4.第四步,设置路由或者设置服务
+    app.config(['$stateProvider','$urlRouterProvider',
+        function($stateProvider,$urlRouterProvider){
+
+    }]);
+    //5.可以选择手动启动angular,也可以选择通过ng-app的形式自动启动
+    angular.bootstrap(document,['lzy']);
+
+</script>

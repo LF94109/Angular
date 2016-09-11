@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body ng-app="lzy" ng-init="sb={name:'jack',age:40}">
+    <ez-namecard data="sb"></ez-namecard>
+</body>
+</html>
+<script>
+    //1.声明一个模块
+    angular.module('lzy',[])
+            .directive('ezNamecard',function($rootScope){
+                return {
+                    restrict:'E',
+                    replace:true,
+                    template:"<div class='namecard'></div>",
+                    link:function(scope,element,attrs){
+                        //1.将内容添加到div里面
+                        console.log(element);
+                        console.log(scope);
+                        console.log(attrs);
+                        element.append("<div>name:<span field='name'></span></div>")
+                                .append("<div>age:<span field='age'></span></div>");
+                        //2.监听SB的变化，输出到页面上去
+                        scope.$watch(attrs.data,function(nv,ov){
+                            //nv是新的值,ov是旧值
+                            var span = element.find('span');
+                            span[0].textContent = nv.name;
+                            span[1].textContent = nv.age;
+                        },true)
+
+                        //3.验证一下
+                        setInterval(function(){
+                            //scope.$apply("sb.age=sb.age+1");
+                            scope.sb.age = scope.sb.age + 1;
+                            console.log(scope.sb.age);
+                        },1000)
+
+
+
+                    }
+                }
+            })
+</script>
+
+<!--
+数据的变化是通过scope下面的$watch方法来监听的,然后再通过$apply方法进行传播,
+通知$watch回调函数这个值已经变化了，那么我们就可以在$watch回调函数中得到这个数据修改前
+和修改后的值.
+-->
+

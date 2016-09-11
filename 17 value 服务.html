@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+<button onclick="showUserName()">展示我的服务</button>
+<div id="result"></div>
+</body>
+</html>
+<script>
+    function showUserName(){
+        var injector = angular.injector(['zlf'])
+        var value = injector.get('username')
+        document.querySelector('#result').innerHTML = value
+    }
+    angular.module('zlf',[])
+            .value('username','whoami')
+</script>

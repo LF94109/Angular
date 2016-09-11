@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body ng-app="lzy" ng-init="sb={name:'somebody',age:30}">
+    <ez-namecard data="sb"></ez-namecard>
+    <div ez-logger data="sb"></div>
+</body>
+</html>
+<script>
+    angular.module('lzy',[])
+            .directive('ezNamecard',function(){
+                return {
+                    restrict:'E',
+                    replace:true,
+                    template:"<ul class='namecard'></ul>",
+                    link:function(scope,element,attrs){
+                        //1，获取值 SB
+                        var model = attrs.data;
+                        //2.插入表单元素
+                        element.append("<li>name:<input type='text' field='name'>")
+                                .append("<li>age:<input type='text' field='age'>")
+                        //3.监听keyup事件，修改数据
+                        element.find('input').on('keyup',function(ev){
+                            var field = ev.target.getAttribute("field");
+                            console.log(field);
+                            scope[model][field] = ev.target.value;
+                            //scope.sb.name = 表单输入的值
+                            //scope.sb.age = 表单输入的值
+                            //最后再进行传播
+                            scope.$apply();
+                        })
+                    }
+                }
+            })
+            .directive('ezLogger',function(){
+                return {
+                    restrict:'A',
+                    link:function(scope,element,attrs){
+                        //1.接收一下数据
+                        var model = attrs.data;
+                        scope.$watch(model,function(nv){
+                            var data = JSON.stringify(nv);
+                            element.html(data.toString());
+                        },true)
+                    }
+                }
+            })
+
+</script>
+

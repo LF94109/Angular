@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+<div id="time"></div>
+</body>
+</html>
+<script>
+    $(function(){
+        //setInterval循环
+        setInterval(function(){
+            var date = new Date();
+            //可以将日期格式化
+            $('#time').html(date);
+        },1000)
+    })
+</script>

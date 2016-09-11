@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<div id="content"></div>
+</body>
+</html>
+<script>
+    var app = angular.module('zlf',['ui.router'])
+    app.provider('hello',function () {
+        this.$get = function () {
+            return "hello world"
+        }
+    })
+    angular.element(document).ready(function () {
+        var hello = angular.injector(['ng','zlf']).get('hello')
+        var e = document.querySelector('#content')
+        angular.element(e).text(hello)
+    })
+</script>

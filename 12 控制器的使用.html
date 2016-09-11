@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <!--请问，问哦该如何操作SB这个对象？-->
+    <!--我们需要将所有的业务逻辑放在控制器里边-->
+    {{sb.name}} {{sb.age}}
+</div>
+</body>
+</html>
+<script>
+    var app = angular.module('zlf',[])
+    //在这里，我们对这个控制器进行操作，把所有的数据和方法都挂载到scope上
+    app.controller('myCtrl',function ($scope) {
+        $scope.sb = {
+            name:'zlf',
+            age:23
+        }
+    })
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+<button onclick="doCale()">3+4=?</button>
+<div id="result"></div>
+</body>
+</html>
+<script>
+    function doCale() {
+        //1.定义一个注入器
+        var injector = angular.injector(['zlf']);
+        //2.获取服务
+        var calc = injector.get('calc');
+        //3.调用服务的函数完成加法操作
+        var ret = calc.add(3,4)
+        //4.将结果输出
+        document.querySelector('#result').innerHTML = ret;
+    }
+
+    angular.module('zlf',[])
+            .constant('globalSetting','EN')
+            .provider('calc',function () {
+                //设置一个变量
+                var currency = "¥";
+                this.setLocal = function(i){
+                    var repo = {
+                        "CN":"¥",
+                        "US":"$",
+                        "JP":"¥",
+                        "EN":"€"
+                    };
+                    if(repo[i]) currency = repo[i]
+                }
+                this.$get = function () {
+                    return {
+                        add:function(a,b){return currency + (a+b)},
+                        substrick:function(a,b){return a-b},
+                        mulply:function(a,b){return a*b},
+                        devider:function(a,b){return a/b}
+                    }
+                }
+            })
+            .config(['calcProvider','globalSetting',function (calcProvider,globalSetting) {
+                calcProvider.setLocal(globalSetting);
+            }])
+</script>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+</head>
+<body>
+<!--一会儿我们需要把$HTTP服务输入到这个DIV里面-->
+<div id="content"></div>
+</body>
+</html>
+<script>
+    angular.element(document).ready(function(){
+        angular.injector(['ng']).invoke(function($http){
+            var e = document.querySelector('#content');
+            angular.element(e).text($http.toString());
+        })
+    })
+</script>
