@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zlf">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body ng-init="text='just a demo'">
+{{text|ezUc:true}}
+</body>
+</html>
+<script>
+    angular.module('zlf',[])
+            .filter('ezUc',function(){
+                var result = function(input,cap){
+                    if(!cap){
+                        return input.toUpperCase();
+                    }else{
+                        var output = input.replace(/\b\w+\b/g,function(word){
+                            return word.substring(0,1).toUpperCase() + word.substring(1)                          })
+                        return output;
+                    }
+                }
+                return result;
+            })
+</script>

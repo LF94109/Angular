@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zlf">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+<div ng-controller="ezCtrl">
+    <ez-customer sb="Tom"></ez-customer>
+    <ez-customer sb="Edsion"></ez-customer>
+</div>
+</body>
+</html>
+<script>
+    angular.module('zlf',[])
+            .controller('ezCtrl',function($scope){
+                $scope.Tom = {
+                    name:"Tom",
+                    address:"US"
+                };
+                $scope.Edsion ={
+                    name:"Edsion",
+                    address:"EN"
+                }
+            })
+            .directive('ezCustomer',function () {
+                return {
+                    restrict:"E",
+                    replace:true,
+                    scope:{
+                        customer:"=sb"
+                    },
+                    template:"<div>Name:{{customer.name}} ,Address:{{customer.address}}"
+                }
+            })
+</script>
